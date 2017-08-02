@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/events.css' %}?v=1" rel="stylesheet">
+  <script src="{% static 'js/jquery.bullseye-1.0-min.js' %}"></script>
+  <script src="{% static 'js/events.js' %}?v=1"></script>
+{% endblock head %}
+
+{% block main %}
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+      <div class="page-header">
+        <button type="button" class="btn btn-primary pull-right btn-compose" title="{% trans 'Press Ctrl + P to compose' %}">
+          <span class="glyphicon glyphicon-share-alt"></span> Adicionar</button>
+        <h1>Evento</h1>
+      </div>
+
+      <div class="panel panel-default panel-event">
+        <div class="panel-heading">
+          <h3 class="panel-title">Últimos eventos</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="compose">
+            <h2>Criar um novo evento</h2>
+            <form role="form" id="compose-form">
+              {% csrf_token %}
+              <input type="hidden" name="last_event">
+              <div class="form-group">
+                <label for="id_title">Título</label>
+                <input class="form-control" id="id_title" name="title"></input>
+              </div>
+              <div class="form-group">
+                <label for="id_date_start">Data</label>
+                <input class="form-control" id="id_date_start" name="date_start"></input>
+              </div>
+              <div class="form-group">
+                <label for="id_start">Horário</label>
+                <input class="form-control" id="id_start" name="start"></input>
+              </div>
+              <div class="form-group">
+                <label for="id_description">Descrição</label>
+                <textarea class="form-control" id="id_description" name="description" rows="3"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="id_address">Endereço</label>
+                <input class="form-control" id="id_address" name="address"></input>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-post">
+                  <span class="glyphicon glyphicon-send"></span> Salvar
+                </button>
+                <button type="button" class="btn btn-default btn-cancel-compose">Cancelar</button>
+              </div>
+            </form>
+          </div>
+          <div class="stream-update">
+            <a href="#"><span class="new-posts"></span> Novos eventos</a>
+          </div>
+          <ul class="stream">
+            {% for event in events %}
+              {% include 'events/partial_event.html' with event=event %}
+            {% endfor %}
+          </ul>
+          <div class="load">
+            <img src="{% static 'img/loading.gif' %}">
+          </div>
+          <form method="get" action="{% url 'load' %}" id="load_event" autocomplete="off">
+            <input type="hidden" name="event_source" id="event_source" value="all">
+            <input type="hidden" name="from_event" value="{{ from_event }}">
+            <input type="hidden" name="page" value="{{ page }}">
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock main %}

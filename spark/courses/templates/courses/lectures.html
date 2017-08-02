@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/courses.css' %}" rel="stylesheet">
+  <script src="{% static 'js/jquery.bullseye-1.0-min.js' %}"></script>
+  <script src="{% static 'js/courses.js' %}?v=1"></script>
+{% endblock head %}
+
+{% block main %}
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+  <h1>Leituras de {{ lectures.0.course }}</h1>
+  <div class="col-sm-12 col-lg-12 col-md-12">
+    <div class="col-sm-6 col-lg-6 col-md-6">
+      <ol>
+        {% for lecture in lectures %}
+          <li><a class="lead" href="{% url 'lecture_detail' slug=lecture.course.slug pk=lecture.pk %}">{{ lecture.title }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+    <!-- <div class="col-sm-6 col-lg-6 col-md-6">
+          { for video in videos %}
+            <div class="thumbnail">
+              <iframe width="100%" src="{ video.url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+          { endfor %}
+        </div> -->
+  </div>
+
+  </div>
+</div>
+{% endblock main %}

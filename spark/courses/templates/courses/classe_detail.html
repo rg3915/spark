@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/courses.css' %}" rel="stylesheet">
+  <script src="{% static 'js/jquery.bullseye-1.0-min.js' %}"></script>
+  <script src="{% static 'js/courses.js' %}?v=1"></script>
+{% endblock head %}
+
+{% block main %}
+
+  <div class="page-header">
+    {% if request.user.id in classe.matriculated %}
+      <a href="{% url 'lecture' classe.course.slug %}" class="pull-right btn btn-primary">Material</a>
+    {% else %}
+      <a href="{% url 'subscribe' classe.slug %}" class="pull-right btn btn-success">Inscrever-se</a>
+    {% endif %}
+    <a href="{% url 'classes' %}">Voltar</a>
+    <h3>{{ classe }}</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <section class="articles">
+        <h4>Inicío dia {{ classe.date_initial }}</h4>
+        <h4>Término dia {{ classe.date_final }}</h4>
+        <p>{{ classe.description }}</p>
+      </section>
+    </div>
+  </div>
+
+{% endblock main %}

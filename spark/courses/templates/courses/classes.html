@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/courses.css' %}" rel="stylesheet">
+  <script src="{% static 'js/jquery.bullseye-1.0-min.js' %}"></script>
+  <script src="{% static 'js/courses.js' %}?v=1"></script>
+{% endblock head %}
+
+{% block main %}
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+  {% for classe in classes %}
+    <div class="col-sm-6 col-lg-6 col-md-6">
+      <div class="thumbnail">
+        {% if classe.course.photo %}
+          <img src="{{ classe.course.photo }}" alt="">
+        {% else %}
+          <img src="http://placehold.it/320x150" alt="">
+        {% endif %}
+        <div class="caption">
+        {% if request.user.id in classe.matriculated %}
+          <a href="{% url 'lecture' classe.course.slug %}" class="pull-right btn btn-primary">Material</a>
+        {% else %}
+          <a href="{% url 'subscribe' classe.slug %}" class="pull-right btn btn-success">Inscrever-se</a>
+        {% endif %}
+          <h4><a href="{{ classe.get_absolute_url }}">{{ classe.course }}</a>
+          </h4>
+          <h4>Inicío dia {{ classe.date_initial }}</h4>
+          <p>{{ classe.short_description }}</p>
+        </div>
+        <div class="ratings">
+          <p class="pull-right">15</p>
+          <p>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+</div>
+
+{% endblock main %}

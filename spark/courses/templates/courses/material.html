@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/courses.css' %}" rel="stylesheet">
+  <script src="{% static 'js/jquery.bullseye-1.0-min.js' %}"></script>
+  <script src="{% static 'js/courses.js' %}?v=1"></script>
+{% endblock head %}
+
+{% block main %}
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+  <h1>Material</h1>
+  {% for material in materials %}
+    <div class="col-sm-12 col-lg-12 col-md-12">
+      <div class="thumbnail">
+        <iframe width="100%" src="{{ material.url }}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,14 @@
+Django==1.10.4
+bleach==1.5.0
+dj-database-url==0.4.1
+dj-static==0.0.6
+django-extensions==1.7.9
+gunicorn==19.6.0
+Markdown==2.6.7
+names==0.3.0
+Pillow==3.4.2
+psycopg2==2.6.2
+python-decouple==3.0
+selenium==3.4.0
+Unipath==1.1
+whitenoise==3.2.2

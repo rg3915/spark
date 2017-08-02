@@ -1,1 +1,5 @@
-# spark
+# Spark
+
+```bash
+source setup.sh
+```
